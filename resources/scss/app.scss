@@ -36,3 +36,15 @@ nav li a {
     border-color: $pure;
   }
 }
+
+.btn-primary {
+  background: $primary;
+  transition: $smooth;
+  &:hover {
+    background-color: $primary-hover;
+  }
+}
+
+section.cart {
+  background-color: $secondary;
+}

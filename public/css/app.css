@@ -36,3 +36,15 @@ nav li a:hover {
   color: #fff;
   border-color: #fff;
 }
+
+.btn-primary {
+  background: #fe5f1e;
+  transition: all 0.3s ease-in-out;
+}
+.btn-primary:hover {
+  background-color: #b23301;
+}
+
+section.cart {
+  background-color: #f8f8f8;
+}
