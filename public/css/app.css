@@ -294,3 +294,7 @@ section.cart {
   border-radius: 50px !important;
   padding-left: 8px !important;
 }
+
+.link {
+  color: #fe5f1e;
+}

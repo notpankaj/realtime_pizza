@@ -1,5 +1,6 @@
 import axios from "axios";
 import Noty from "noty";
+import initAdmin from "./admin";
 
 const cartBtn = document.querySelector("#cart-counter");
 const addToCartBtns = document.querySelectorAll(".add-to-cart");
@@ -14,6 +15,7 @@ function updateCart(pizza) {
         type: "success",
         text: "Item added to cart",
         // progressBar: false,
+        layout: "bottomLeft",
         timeout: 1000,
       }).show();
     })
@@ -35,3 +37,12 @@ addToCartBtns.forEach((btn) => {
     updateCart(JSON.parse(pizza));
   });
 });
+
+const alertMsg = document.querySelector("#success-alert");
+if (alertMsg) {
+  setTimeout(() => {
+    alertMsg.remove();
+  }, 2000);
+}
+
+initAdmin();

@@ -29,17 +29,19 @@
       </div>
     </div>
 
+    <% if(user){ %>
     <div>
-      <form action="" class="mt-12">
-        <input class="border border-gray-400 p-2 w-1/2 mb-4" placeholder="Phone number" type="text">
-        <input class="border border-gray-400 p-2 w-1/2 mb-4 " placeholder="Address" type="text">
+      <form action="/orders" class="mt-12" method="POST">
+        <input class="border border-gray-400 p-2 w-1/2 mb-4" name="phoneNumber" placeholder="Phone number" type="text">
+        <input class="border border-gray-400 p-2 w-1/2 mb-4 " name="address" placeholder="Address" type="text">
         <div>
           <button type="submit" class="btn-primary px-6 py-2 rounded-full  font-bold ">Order Now</button>
         </div>
       </form>
-
-      <a href="/login" class="inline-block cursor-pointer px"> Login to continue</a>
     </div>
+    <%  } else {%>
+    <a href="/login" class="inline-block cursor-pointer px"> Login to continue</a>
+    <% } %>
 
   </div>
 
