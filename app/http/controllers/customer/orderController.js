@@ -47,6 +47,19 @@ function orderController() {
           return res.redirect("cart");
         });
     },
+    async show(req, res) {
+      try {
+        const order = await Order.findById(req.params.id);
+        // Authorize user
+        if (req.user._id.toString() === order.customerId.toString()) {
+          return res.render("customers/singleOrder", { order: order });
+        }
+        return res.redirect("/");
+      } catch (error) {
+        console.log(error);
+        return res.render("/");
+      }
+    },
   };
 }
 

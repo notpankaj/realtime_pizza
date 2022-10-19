@@ -8,6 +8,7 @@ const AdminOrderController = require("../app/http/controllers/admin/AdminOrderCo
 const guest = require("../app/http/middleware/guest");
 const auth = require("../app/http/middleware/auth");
 const admin = require("../app/http/middleware/admin");
+const statusController = require("../app/http/controllers/admin/StatusController");
 
 function initWebRoutes(app) {
   app.get("/", homeController().index);
@@ -23,13 +24,13 @@ function initWebRoutes(app) {
   app.get("/cart", cartController().index);
   app.post("/update-cart", cartController().update);
 
-  // order
-  app.post("/orders", auth, orderController().store);
-
   // customer
+  app.post("/orders", auth, orderController().store);
   app.get("/customers/orders", auth, orderController().index);
+  app.get("/customer/orders/:id", auth, orderController().show);
   // +++++ ADMIN +++++
   app.get("/admin/orders", admin, AdminOrderController().index);
+  app.post("/admin/order/status", admin, statusController().update);
 }
 
 module.exports = initWebRoutes;
