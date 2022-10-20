@@ -10,6 +10,7 @@ const MongoStore = require("connect-mongo");
 const passport = require("passport");
 const app = express();
 const PORT = process.env.PORT || 3000;
+const Emitter = require("events");
 
 // Database connection
 const DB_URI = "mongodb://localhost:27017/pizza";
@@ -25,6 +26,11 @@ mongoose.connection.on("connected", (err, res) => {
 });
 
 app.use(flash());
+
+// Event Emitter
+const eventEmitter = new Emitter();
+// bind to the application
+app.set("eventEmitter", eventEmitter);
 
 // Session config
 app.use(
@@ -64,6 +70,23 @@ app.set("view engine", "ejs");
 // Routes
 initWebRoutes(app);
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
+});
+
+// Socket
+const io = require("socket.io")(server);
+io.on("connection", (socket) => {
+  // Join
+  // console.log(socket.id, "s-id");
+  socket.on("join", (orderId) => {
+    socket.join(orderId);
+  });
+});
+
+eventEmitter.on("orderUpdated", (data) => {
+  io.to(`order_${data.id}`).emit("orderUpdated", data);
+});
+eventEmitter.on("orderPlaced", (data) => {
+  io.to(`adminRoom`).emit("orderPlaced", data);
 });
