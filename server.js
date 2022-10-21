@@ -1,8 +1,8 @@
 require("dotenv").config();
 const path = require("path");
 const express = require("express");
-const expressLayout = require("express-ejs-layouts");
 const initWebRoutes = require("./routes/web");
+const expressLayout = require("express-ejs-layouts");
 const mongoose = require("mongoose");
 const session = require("express-session");
 const flash = require("express-flash");
@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 3000;
 const Emitter = require("events");
 
 // Database connection
-const DB_URI = "mongodb://localhost:27017/pizza";
+const DB_URI = process.env.MONGO_CONNECTION_URL;
 mongoose.connect(DB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -69,6 +69,9 @@ app.set("view engine", "ejs");
 
 // Routes
 initWebRoutes(app);
+app.use((req, res) => {
+  res.status(404).render("errors/404");
+});
 
 const server = app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
