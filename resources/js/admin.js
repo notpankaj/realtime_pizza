@@ -33,6 +33,7 @@ function initAdmin(socket) {
   };
 
   const generateMarkup = (orders) => {
+    if (!orders) return;
     return orders
       .map((order) => {
         return `
